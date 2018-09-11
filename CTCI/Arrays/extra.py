@@ -3,6 +3,15 @@ A good exercise to practice strings, arrays, and general data structures is to i
 StringBuilder, HashTable and Array List.
 """
 
-"""
-From next lesson onwards write the CTCI algorithm on the notebook because you'll have to whiteboard for the interview
-"""
+table = [[] for x in range(10)]
+
+def hash_function(x): return x%10
+
+def insert(table, input, value): table[hash_function(input)].append((input, value))
+
+insert(table,41,'apple')
+print(table)
+insert(table,93,'banana')
+print(table)
+insert(table,93,'orange')
+print(table)
