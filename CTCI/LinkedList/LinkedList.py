@@ -1,11 +1,11 @@
 """
-Creating, deleting a Linked List.
+Creating, deleting a LinkedList.
 """
 """
 The runner technique
 """
 
-"""Have to implement this Linked List from scratch"""
+"""Have to implement this LinkedList from scratch"""
 
 from random import randint
 
