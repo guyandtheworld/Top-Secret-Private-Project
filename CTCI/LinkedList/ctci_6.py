@@ -42,5 +42,6 @@ class Test(unittest.TestCase):
         print(is_palindrome(ll.head, ll.head))
         print(is_palindrome_v2(ll))
 
+
 if __name__ == "__main__":
     unittest.main()
