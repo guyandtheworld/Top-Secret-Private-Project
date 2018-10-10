@@ -20,7 +20,10 @@ class Stack:
         self.top = 0
 
     def push(self, value):
-        node =  Node(value)
+        if self.isEmpty() or self.stack.min > value: 
+            node = Node(value, min=value)
+        else:
+            node =  Node(value, min=self.stack.min)
         node.next = self.stack
         self.stack = node
         self.top += 1
@@ -41,15 +44,22 @@ class Stack:
     def peek(self):
         if self.isEmpty():
             return None
+        print("min: ", self.stack.min)
         return self.stack.value
 
+    def min(self):
+        if self.isEmpty():
+            return None
+        return self.stack.min
 
 class Test(unittest.TestCase):
     def test_stack_min(self):
         stack = Stack(100)
         stack.push(100)
         print(stack.peek())
-        print(stack.pop())
+        stack.push(999)
+        print(stack.peek())
+        stack.push(67)
         print(stack.peek())
 
 
