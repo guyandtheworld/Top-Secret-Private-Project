@@ -44,7 +44,6 @@ class Stack:
     def peek(self):
         if self.isEmpty():
             return None
-        print("min: ", self.stack.min)
         return self.stack.value
 
     def min(self):
@@ -52,15 +51,16 @@ class Stack:
             return None
         return self.stack.min
 
+
 class Test(unittest.TestCase):
     def test_stack_min(self):
         stack = Stack(100)
         stack.push(100)
-        print(stack.peek())
+        print(stack.min())
         stack.push(999)
-        print(stack.peek())
+        print(stack.min())
         stack.push(67)
-        print(stack.peek())
+        print(stack.min())
 
 
 if __name__ == "__main__":
