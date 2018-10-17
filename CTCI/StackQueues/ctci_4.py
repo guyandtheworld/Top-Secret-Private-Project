@@ -41,22 +41,18 @@ class QueueUsingStack:
     def __init__(self):
         self.stack_new = Stack()
         self.stack_old = Stack()
-    
+
     def enqueue(self, item):
         self.stack_new.push(item)
-    
+
     def dequeue(self):
         if self.stack_new.is_empty():
             return None
-
-        while not self.stack_new.is_empty():
-            self.stack_old.push(self.stack_new.pop())
-
+    
+        if self.stack_old.is_empty():
+            while not self.stack_new.is_empty():
+                self.stack_old.push(self.stack_new.pop())
         item = self.stack_old.pop()
-
-        while not self.stack_old.is_empty():
-            self.stack_new.push(self.stack_old.pop())
-
         return item
 
     def view(self):
@@ -64,7 +60,15 @@ class QueueUsingStack:
         while head:
             print(head.value, "-> ", end="")
             head = head.next
+        arr = []
+        head = self.stack_old.stack
+        while head:
+            arr.append(head.value)
+            head = head.next
+        for i in reversed(arr):
+            print(i, "-> ", end="")
         print()
+
 
 class Test(unittest.TestCase):
     def test_stack_min(self):
@@ -72,8 +76,10 @@ class Test(unittest.TestCase):
         queue.enqueue(3)
         queue.enqueue(5)
         queue.enqueue(6)
-        queue.view()
         queue.dequeue()
+        queue.enqueue(0)
+        queue.enqueue(12)
+        queue.enqueue(67)
         queue.view()
 
 if __name__ == "__main__":
