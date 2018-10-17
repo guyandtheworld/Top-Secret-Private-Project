@@ -5,6 +5,8 @@ threshold. Implement a data structure SetOfStacks that mimics this. SetO-fStacks
 composed of several stacks and should create a new stack once the previous one exceeds capacity.
 SetOfStacks. push() and SetOfStacks. pop() should behave identically to a single stack
 (that is, pop () should return the same values as it would if there were just a single stack).
+
+Implement a function popAt (int index) which performs a pop operation on a specific sub-stack.
 """
 
 import unittest
@@ -54,37 +56,41 @@ class Stack:
         ptr = self.stack
         items = []
         while ptr:
-            print(ptr.value)
-            print('--')
+            print(ptr.value, end="")
             ptr = ptr.next
-
+        print()
 
 class SetOfStacks:
     def __init__(self, threshold):
         self.threshold = threshold
-        self.master = [Stack(self.threshold)]
-        self.stack_top = 0
+        self.stacks = [Stack(self.threshold)]
+        self.last_stack = 0
 
     def push(self, value):
-        if self.master[self.stack_top].is_full():
-            self.master.append(Stack(self.threshold))
-            self.stack_top += 1
-        self.master[self.stack_top].push(value)
+        if self.stacks[self.last_stack].is_full():
+            self.stacks.append(Stack(self.threshold))
+            self.last_stack += 1
+        self.stacks[self.last_stack].push(value)
 
     def pop(self):
-        if self.master[self.stack_top].is_empty():
-            self.master.pop()
-            self.stack_top -= 1
-            return None
-        item = self.master[self.stack_top].pop()
+        if self.stacks[self.last_stack].is_empty():
+            self.stacks.pop()
+            self.last_stack -= 1
+        item = self.stacks[self.last_stack].pop()
         return item
-
 
     def print_stack(self):
         # Do with yield
-        for stack in self.master:
+        for stack in self.stacks:
             stack.print_stack()
             print('-----------------')
+
+    def popAt(self, value):
+        if self.stacks[value-1]:
+            return self.stacks[value-1].pop()
+        else:
+            print("Stack doesn't exist")
+            return None
 
 
 class Test(unittest.TestCase):
@@ -99,11 +105,10 @@ class Test(unittest.TestCase):
         sos.push(7)
         sos.push(8)
         sos.push(9)
-        sos.print_stack()
-        sos.pop()
-        sos.pop()
-        sos.pop()
-        sos.print_stack()
+        print("popped: ", sos.pop())
+        print("popped: ", sos.pop())
+        print("popped: ", sos.pop())
+        print("popped: ", sos.pop())
 
 
 if __name__ == "__main__":
