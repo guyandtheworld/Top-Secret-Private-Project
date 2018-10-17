@@ -85,7 +85,7 @@ class SetOfStacks:
             stack.print_stack()
             print('-----------------')
 
-    def popAt(self, value):
+     def popAt(self, value):
         if self.stacks[value-1]:
             return self.stacks[value-1].pop()
         else:
