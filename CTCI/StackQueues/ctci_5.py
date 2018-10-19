@@ -74,12 +74,11 @@ class Test(unittest.TestCase):
         self.tStack.push(self.mStack.pop())
 
         while not self.mStack.is_empty():
-            self.tStack.view()
 
             count = 0
             item = self.mStack.pop()
-            if self.tStack.peek() > item:
-                while not self.tStack.is_empty() and self.tStack.peek() > item:
+            if self.tStack.peek() < item:
+                while not self.tStack.is_empty() and self.tStack.peek() < item:
                     self.mStack.push(self.tStack.pop())
                     count += 1
 
@@ -87,6 +86,7 @@ class Test(unittest.TestCase):
 
             for _ in range(count):
                 self.tStack.push(self.mStack.pop())
+            self.tStack.view()
 
     def test_stack_min(self):
         self.mStack = Stack()
