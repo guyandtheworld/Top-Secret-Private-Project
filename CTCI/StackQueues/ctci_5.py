@@ -38,6 +38,9 @@ class Stack:
             return True
         return False
 
+    def peek(self):
+        return self.stack.value
+
     def view(self):
         ptr = self.stack
         while ptr:
@@ -48,10 +51,10 @@ class Stack:
 
 class Test(unittest.TestCase):
 
-    def sort(self):
+    def sort_with_top(self):
         top = self.mStack.top
         for i in range(top):
-            print("Iter : ", i+1)
+            print("Iter : ", i)
             tmax = self.mStack.pop()
             for j in range(top-1):
                 temp = self.mStack.pop()
@@ -66,6 +69,24 @@ class Test(unittest.TestCase):
             top -= 1
             self.mStack.view()
             print()
+
+    def sort(self):
+        self.tStack.push(self.mStack.pop())
+
+        while not self.mStack.is_empty():
+            self.tStack.view()
+
+            count = 0
+            item = self.mStack.pop()
+            if self.tStack.peek() > item:
+                while not self.tStack.is_empty() and self.tStack.peek() > item:
+                    self.mStack.push(self.tStack.pop())
+                    count += 1
+
+            self.tStack.push(item)
+
+            for _ in range(count):
+                self.tStack.push(self.mStack.pop())
 
     def test_stack_min(self):
         self.mStack = Stack()
