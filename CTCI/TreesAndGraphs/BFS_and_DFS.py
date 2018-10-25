@@ -7,8 +7,9 @@ class Graph:
 
 
 class Node:
-    def __init__(self):
-        self.name = None
+    def __init__(self, name=None):
+        self.name = name
+        self.visited = False
         self.children = []
 
 
@@ -17,27 +18,27 @@ def visit(root):
 
 
 def DFS(root):
-    if root == None:
+    if root is None:
         return
     visit(root)
     root.visited = True
     for node in root.children:
-        if node.visited == False:
+        if not node.visited:
             DFS(node)
 
 
 def BFS(root):
     queue = []
-    root.marked = True
+    root.visited = True
     queue.append(root)
 
     while len(queue) != 0:
         node = queue.pop(0)
         visit(node)
         for n in node.children:
-            if n.marked == False:
+            if not n.visited:
                 n.marked = True
-                node.append(n)
+                queue.append(n)
 
 
 class Test(unittest.TestCase):
@@ -45,16 +46,20 @@ class Test(unittest.TestCase):
     def test_graph(self):
         graph = Graph()
 
-        node1 = Node()
-        node2 = Node()
-        node3 = Node()
-        node4 = Node()
-        node5 = Node()
+        node0 = Node(0)
+        node1 = Node(1)
+        node2 = Node(2)
+        node3 = Node(3)
+        node4 = Node(4)
+        node5 = Node(5)
 
-        graph.nodes.extend([node1, node2, node3, node4])
-        node1.children.append(node2)
-        node2.children.extend([node5, node4])
-        node4.children.append(node3)
+        graph.nodes.extend([node0, node1, node2, node3, node4, node5])
+        node0.children.extend([node1, node4, node5])
+        node1.children.extend([node4, node3])
+        node3.children.extend([node4, node2])
+        node2.children.extend([node1])
+        BFS(node0)
+
 
 
 if __name__ == "__main__":
