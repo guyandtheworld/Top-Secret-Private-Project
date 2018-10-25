@@ -37,7 +37,7 @@ def BFS(root):
         visit(node)
         for n in node.children:
             if not n.visited:
-                n.marked = True
+                n.visited = True
                 queue.append(n)
 
 
@@ -59,8 +59,3 @@ class Test(unittest.TestCase):
         node3.children.extend([node4, node2])
         node2.children.extend([node1])
         BFS(node0)
-
-
-
-if __name__ == "__main__":
-    unittest.main()
