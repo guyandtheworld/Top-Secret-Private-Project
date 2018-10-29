@@ -68,6 +68,9 @@ class LinkedNode:
         self.value = value
         self.next = None
 
+    def __str__(self):
+        return "Whatsup"
+
 
 class ListOfDepth:
 
@@ -79,7 +82,7 @@ class ListOfDepth:
             return
 
         l_node = LinkedNode(node.value)
-        if len(self.head_of_levels) == level+1:
+        if len(self.head_of_levels) >= level+1:
             ptr = self.head_of_levels[level]
             while ptr.next != None:
                 ptr = ptr.next
@@ -96,6 +99,7 @@ class ListOfDepth:
             head = head.next
 
     def view(self):
+        # print(len(self.head_of_levels))
         for i, head in enumerate(self.head_of_levels):
             print("Level: ", i)
             self._view(head)
@@ -113,6 +117,12 @@ class Test(unittest.TestCase):
     def test_creation_linked_list(self):
         l = ListOfDepth()
         l.create_levels(self.tree.getRoot(), 0)
+        # l.create_levels(self.tree.getRoot().left, 1)
+        # l.create_levels(self.tree.getRoot().left.left, 2)
+        # l.create_levels(self.tree.getRoot().left.right, 2)
+        # l.create_levels(self.tree.getRoot().right, 1)
+        # l.create_levels(self.tree.getRoot().right.left, 2)
+        # l.create_levels(self.tree.getRoot().right.right, 2)
         l.view()
 
 
