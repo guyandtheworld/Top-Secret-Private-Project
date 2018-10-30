@@ -3,7 +3,7 @@ Check Balanced: Implement a function to check if a binary tree is balanced. For 
 a balanced tree is defined to be a tree such that the heights of the two subtrees of any node never differ by more than one.
 """
 
-
+import sys
 import unittest
 
 
@@ -78,6 +78,23 @@ class Balance:
 
         self._calHeight(node.left, node, h+1)
         self._calHeight(node.right, node, h+1)
+
+    def checkHeight1(self, node):
+        if node is None:
+            return -1
+
+        leftheight = self.checkHeight1(node.left)
+        if leftheight == -sys.maxsize:
+            return -sys.maxsize
+
+        rightheight = self.checkHeight1(node.right)
+        if rightheight == -sys.maxsize:
+            return -sys.maxsize
+
+        if abs(leftheight - rightheight) > 1:
+            return -sys.maxsize
+        else:
+            return max(leftheight, rightheight) + 1
 
 
 class Test(unittest.TestCase):
