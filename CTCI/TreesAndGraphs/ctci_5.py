@@ -51,29 +51,24 @@ class BinTree:
 
 class CheckSearch:
     def __init__(self):
-        pass
+        self.last_value = None
 
-    def checkBalanced(self, root):
-        if root == None:
-            return None
+    def checkBalanced(self, node):
+        if node is None:
+            return True
 
-        print(root.value)
-
-        left = self.checkBalanced(root.left)
-        if (left == None):
-            return root.value
-
-        if left == False or left >= root.value:
+        if not self.checkBalanced(node.left):
             return False
 
-        right = self.checkBalanced(root.right)
-        if (right == None):
-            return root.value
-
-        if right == False or right < root.value:
+        if self.last_value is not None and node.value <= self.last_value:
             return False
 
-        return root.value
+        if not self.checkBalanced(node.right):
+            return False
+
+        self.last_value = node.value
+
+        return True
 
 
 class Test(unittest.TestCase):
@@ -82,14 +77,12 @@ class Test(unittest.TestCase):
         node3 = Node(3)
         node1 = Node(1)
         node5 = Node(5)
-        node0 = Node(0)
         node2 = Node(2)
         node4 = Node(4)
         node6 = Node(6)
 
         node3.left = node1
         node3.right = node5
-        node1.left = node0
         node1.right = node2
         node5.left = node4
         node5.right = node6
