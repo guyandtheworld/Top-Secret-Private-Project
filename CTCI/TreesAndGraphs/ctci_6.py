@@ -52,28 +52,23 @@ class BinTree:
 
 
 def get_left_most(node):
-    if node == None:
-        return None
-
-    while node.left != None:
+    while node.left is not None:
         node = node.left
-
     return node
 
 
-def get_right_subtree(node):
-    pass
-
-
 def checkNode(node):
-    if node.right:
+    if node.right is not None:
         next_node = get_left_most(node.right)
-
-    if node.parent.right == node:
-        get_right_subtree(node)
+    elif node.parent.right == node:
+        parent = node.parent
+        child = node
+        while parent.right == child:
+            parent = child.parent.parent
+            child = node.parent
+        next_node = parent
     else:
         return node.parent
-
     return next_node
 
 
@@ -102,7 +97,9 @@ class Test(unittest.TestCase):
 
         tree = BinTree()
         tree.root = node6
-        tree.view()
+        # tree.view()
+
+        print(checkNode(node3).value)
 
 
 if __name__ == '__main__':
