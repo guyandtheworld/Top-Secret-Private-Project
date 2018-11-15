@@ -28,6 +28,7 @@ class Test(unittest.TestCase):
         f = Node('f')
 
         project = [a, b, c, d, e, f]
+        dependencies = [()]
 
 
 if __name__ == '__main__':
